@@ -1,5 +1,5 @@
-const mysql = require('mysql2/promise.js');
-const dotenv = require('dotenv')
+import mysql from 'mysql2/promise.js';
+import dotenv from 'dotenv';
 
 dotenv.config()
 
@@ -16,7 +16,7 @@ const pool = mysql.createPool({
 });
 
 // Função para obter uma conexão do pool
-async function getConnection() {
+export async function getConnection() {
   try {
     const connection = await pool.getConnection();
     return connection;
@@ -26,7 +26,7 @@ async function getConnection() {
 }
 
 // Função para liberar a conexão
-async function releaseConnection(connection) {
+export async function releaseConnection(connection) {
   try {
     if (connection) {
       await connection.release();
@@ -35,5 +35,3 @@ async function releaseConnection(connection) {
     console.error('Erro ao liberar a conexão:', err.message);
   }
 }
-
-module.exports = { getConnection, releaseConnection, pool };
